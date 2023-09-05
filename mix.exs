@@ -44,11 +44,11 @@ defmodule ExMagic.Mixfile do
       {:elixir_make, "~> 0.5.0", runtime: false},
       {:dialyxir, "~> 0.5.1", only: :test},
       {:ex_doc, "~> 0.21.2", only: :dev},
-      {:libmagic, git: "https://github.com/file/file", tag: "FILE#{file_package_tag()}", app: false, compile: false}
+      {:libmagic, git: "https://github.com/file/file", tag: "FILE#{filelib_tag()}", app: false, compile: false}
     ]
   end
 
-  defp file_package_tag() do
+  defp filelib_tag() do
     File.read!(".file-version")
     |> String.trim()
     |> String.replace(".", "_")
