@@ -10,11 +10,11 @@ defmodule ExMagic.Mixfile do
       name: "ExMagic",
       source_url: "https://github.com/liamwhite/exmagic",
       elixir: "~> 1.9",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       compilers: [:elixir_make] ++ Mix.compilers(),
       aliases: aliases(),
-      deps: deps(),
+      deps: deps()
     ]
   end
 
@@ -32,10 +32,10 @@ defmodule ExMagic.Mixfile do
   defp package do
     [
       name: :exmagic,
-      files: ["c_src", "lib", "mix.exs", "README*", "LICENSE*"],
+      files: ["c_src", "lib", "mix.exs", "README*", "LICENSE*", ".file-version", "Makefile"],
       maintainers: ["Andrew Dunham", "Liam P. White"],
       links: %{"GitHub" => "https://github.com/liamwhite/exmagic"},
-      licenses: ["MIT"],
+      licenses: ["MIT"]
     ]
   end
 
@@ -44,6 +44,13 @@ defmodule ExMagic.Mixfile do
       {:elixir_make, "~> 0.5.0", runtime: false},
       {:dialyxir, "~> 0.5.1", only: :test},
       {:ex_doc, "~> 0.21.2", only: :dev},
+      {:libmagic, git: "https://github.com/file/file", tag: "FILE#{file_package_tag()}", app: false, compile: false}
     ]
+  end
+
+  defp file_package_tag() do
+    File.read!(".file-version")
+    |> String.trim()
+    |> String.replace(".", "_")
   end
 end

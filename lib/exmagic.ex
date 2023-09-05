@@ -25,7 +25,7 @@ defmodule ExMagic do
       {:ok, "text/plain"}
   """
   @spec from_buffer(binary) :: {:ok, binary} | {:error, atom}
-  @spec from_buffer(List.t) :: {:ok, binary} | {:error, atom}
+  @spec from_buffer(List.t()) :: {:ok, binary} | {:error, atom}
   def from_buffer(buf) when is_binary(buf) do
     nif_from_buffer(
       buf,
@@ -49,7 +49,7 @@ defmodule ExMagic do
       "text/plain"
   """
   @spec from_buffer!(binary) :: binary
-  @spec from_buffer!(List.t) :: binary
+  @spec from_buffer!(List.t()) :: binary
   def from_buffer!(buf) do
     {:ok, magic} = from_buffer(buf)
     magic
@@ -58,7 +58,7 @@ defmodule ExMagic do
   @doc """
   Retrieves magic information from the given file.
   """
-  @spec from_file(String.t) :: {:ok, binary} | {:error, atom}
+  @spec from_file(String.t()) :: {:ok, binary} | {:error, atom}
   def from_file(path) do
     if File.exists?(path) do
       nif_from_file(
@@ -73,7 +73,7 @@ defmodule ExMagic do
   @doc """
   Retrieves magic information from the given file.  Fails on an error.
   """
-  @spec from_file!(String.t) :: binary
+  @spec from_file!(String.t()) :: binary
   def from_file!(path) do
     {:ok, magic} = from_file(path)
     magic
@@ -85,9 +85,9 @@ defmodule ExMagic do
   ## Examples
 
       iex> ExMagic.version()
-      529
+      545
   """
-  @spec version() :: Integer.t
+  @spec version() :: Integer.t()
   def version() do
     exit(:nif_not_loaded)
   end
@@ -95,7 +95,7 @@ defmodule ExMagic do
   ##################################################
   ## HELPER FUNCTIONS
 
-  @spec magic_path() :: String.t
+  @spec magic_path() :: String.t()
   defp magic_path do
     Path.join(@priv_dir, "magic.mgc")
   end
