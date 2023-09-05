@@ -47,10 +47,13 @@ defmodule ExMagic.Mixfile do
       {:libmagic, git: "https://github.com/file/file", tag: "FILE#{filelib_tag()}", app: false, compile: false}
     ]
   end
+<<<<<<< HEAD
 
   defp filelib_tag() do
     File.read!(".file-version")
     |> String.trim()
     |> String.replace(".", "_")
   end
+=======
+>>>>>>> 82c057a (Include Makefile in the hex package)
 end
