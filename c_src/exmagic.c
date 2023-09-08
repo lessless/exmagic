@@ -96,6 +96,7 @@ open_magic_database(ErlNifEnv *env, int flags, char *dbpath, ERL_NIF_TERM *ret) 
 
   /* Load the magic database at the given path. */
   if (magic_load(cookie, dbpath) != 0) {
+    printf("ERROR: failed to load magic database at: %s\n", dbpath);
     *ret = enif_make_tuple2(
       env,
       enif_make_atom(env, "error"),
